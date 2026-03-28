@@ -1,0 +1,51 @@
+import { client } from "./client";
+
+// Fetch all product picks, ordered
+export async function getProducts() {
+  return client.fetch(
+    `*[_type == "product"] | order(order asc) {
+      _id, tag, name, description, link, cta
+    }`
+  );
+}
+
+// Fetch room guides, ordered
+export async function getGuides() {
+  return client.fetch(
+    `*[_type == "guide"] | order(order asc) {
+      _id, title, description, icon
+    }`
+  );
+}
+
+// Fetch all blog posts
+export async function getBlogPosts() {
+  return client.fetch(
+    `*[_type == "blogPost"] | order(publishedAt desc) {
+      _id, title, slug, excerpt, coverImage, category, publishedAt
+    }`
+  );
+}
+
+// Fetch single blog post by slug
+export async function getBlogPost(slug: string) {
+  return client.fetch(
+    `*[_type == "blogPost" && slug.current == $slug][0] {
+      _id, title, slug, excerpt, coverImage, category, body, publishedAt
+    }`,
+    { slug }
+  );
+}
+
+// Fetch site settings (singleton)
+export async function getSiteSettings() {
+  return client.fetch(
+    `*[_type == "siteSettings"][0] {
+      siteName, tagline, heroDescription,
+      seasonalTitle, seasonalDescription,
+      featuredGuideTitle, featuredGuideDescription,
+      newsletterHeadline, newsletterDescription,
+      contactEmail
+    }`
+  );
+}
