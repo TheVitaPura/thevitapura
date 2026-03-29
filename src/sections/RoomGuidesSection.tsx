@@ -137,7 +137,7 @@ export default function RoomGuidesSection({ guides }: RoomGuidesSectionProps) {
         </div>
         <div ref={ctaRef} className="mt-10 text-center">
           <a
-            href="#"
+            href="/guides"
             className="btn-hover inline-block px-8 py-4 bg-olive text-cream rounded-full font-medium text-sm tracking-wide"
           >
             Explore all guides
