@@ -42,6 +42,8 @@ body {
   height: 100vh;
   overflow: hidden;
   will-change: transform;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 /* Botanical background image */
@@ -51,6 +53,21 @@ body {
   object-fit: cover;
   width: 100%;
   height: 100%;
+  will-change: transform;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* GPU-accelerated animation targets */
+.word,
+.category-pill,
+.product-card,
+.principle-item,
+.guide-card {
+  will-change: transform, opacity;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 /* Vignette overlay on sections */

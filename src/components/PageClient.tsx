@@ -1,6 +1,10 @@
 "use client";
 
+import gsap from "gsap";
 import Navigation from "@/components/Navigation";
+
+// Force GPU acceleration on all GSAP animations
+gsap.config({ force3D: true });
 import HeroSection from "@/sections/HeroSection";
 import CategorySection from "@/sections/CategorySection";
 import CuratedPicksSection from "@/sections/CuratedPicksSection";
