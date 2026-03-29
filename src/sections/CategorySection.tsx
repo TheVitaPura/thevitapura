@@ -44,16 +44,17 @@ export default function CategorySection({ categories }: CategorySectionProps) {
     const ctx = gsap.context(() => {
       const pills = pillsContainer.querySelectorAll(".category-pill");
 
-      // Enter
-      gsap.from(title, {
-        x: -60, opacity: 0, duration: 0.8, ease: "power2.out",
-        scrollTrigger: { trigger: section, start: "top 60%" },
-      });
-      gsap.from(pills, {
-        y: 20, opacity: 0, scale: 0.95, stagger: 0.06, duration: 0.6, delay: 0.3, ease: "power2.out",
-        scrollTrigger: { trigger: section, start: "top 60%" },
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "top 70%",
+          end: "bottom 30%",
+          toggleActions: "play reverse play reverse",
+        },
       });
 
+      tl.from(title, { x: -60, opacity: 0, duration: 0.8, ease: "power2.out" });
+      tl.from(pills, { y: 20, opacity: 0, scale: 0.95, stagger: 0.06, duration: 0.6, ease: "power2.out" }, "-=0.4");
     }, section);
 
     return () => ctx.revert();

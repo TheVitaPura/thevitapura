@@ -55,6 +55,19 @@ export default function HeroSection({
       enterTl.to(wordEls, {
         y: 0, opacity: 1, stagger: 0.12, duration: 1.2, ease: "power2.out",
       });
+
+      // Exit when scrolling past hero, re-enter when scrolling back
+      ScrollTrigger.create({
+        trigger: section,
+        start: "bottom 40%",
+        end: "bottom 0%",
+        onLeave: () => {
+          gsap.to(content, { y: -60, opacity: 0, duration: 0.6, ease: "power2.in" });
+        },
+        onEnterBack: () => {
+          gsap.to(content, { y: 0, opacity: 1, duration: 0.6, ease: "power2.out" });
+        },
+      });
     }, section);
 
     return () => ctx.revert();

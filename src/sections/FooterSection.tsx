@@ -39,22 +39,17 @@ export default function FooterSection({
     if (!section || !left || !right) return;
 
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        [left, right],
-        { y: 18, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          stagger: 0.15,
-          duration: 1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: section,
-            start: "top 80%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "top 70%",
+          end: "bottom 30%",
+          toggleActions: "play none none reverse",
+        },
+      });
+
+      tl.from(left, { y: 18, opacity: 0, duration: 0.8, ease: "power2.out" });
+      tl.from(right, { y: 18, opacity: 0, duration: 0.8, ease: "power2.out" }, "-=0.5");
     }, section);
 
     return () => ctx.revert();

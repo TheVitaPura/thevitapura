@@ -60,24 +60,17 @@ export default function CuratedPicksSection({
     const ctx = gsap.context(() => {
       const cardEls = cards.querySelectorAll(".product-card");
 
-      gsap.from(title, {
-        y: 30,
-        opacity: 0,
-        duration: 1,
-        ease: "power2.out",
-        scrollTrigger: { trigger: section, start: "top 60%" },
-      });
-      gsap.from(cardEls, {
-        y: 40,
-        opacity: 0,
-        scale: 0.95,
-        stagger: 0.15,
-        duration: 1,
-        delay: 0.2,
-        ease: "power2.out",
-        scrollTrigger: { trigger: section, start: "top 60%" },
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "top 70%",
+          end: "bottom 30%",
+          toggleActions: "play reverse play reverse",
+        },
       });
 
+      tl.from(title, { y: 30, opacity: 0, duration: 0.8, ease: "power2.out" });
+      tl.from(cardEls, { y: 40, opacity: 0, scale: 0.95, stagger: 0.15, duration: 0.8, ease: "power2.out" }, "-=0.4");
     }, section);
 
     return () => ctx.revert();

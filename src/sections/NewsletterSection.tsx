@@ -41,21 +41,16 @@ export default function NewsletterSection({
     if (!section || !content) return;
 
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        content,
-        { y: 40, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 1.2,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: section,
-            start: "top 80%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "top 70%",
+          end: "bottom 30%",
+          toggleActions: "play none none reverse",
+        },
+      });
+
+      tl.from(content, { y: 40, opacity: 0, duration: 1.0, ease: "power2.out" });
     }, section);
 
     return () => ctx.revert();

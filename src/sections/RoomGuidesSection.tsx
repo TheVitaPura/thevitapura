@@ -67,71 +67,21 @@ export default function RoomGuidesSection({ guides }: RoomGuidesSectionProps) {
     if (!section || !title || !intro || !cards || !cta) return;
 
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        title,
-        { y: 30, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: title,
-            start: "top 80%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
-
-      gsap.fromTo(
-        intro,
-        { y: 30, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: intro,
-            start: "top 80%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
-
       const guideCards = cards.querySelectorAll(".guide-card");
-      gsap.fromTo(
-        guideCards,
-        { y: 30, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          stagger: 0.15,
-          duration: 1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: cards,
-            start: "top 80%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
 
-      gsap.fromTo(
-        cta,
-        { y: 20, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.8,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: cta,
-            start: "top 80%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "top 70%",
+          end: "bottom 30%",
+          toggleActions: "play none none reverse",
+        },
+      });
+
+      tl.from(title, { y: 30, opacity: 0, duration: 0.8, ease: "power2.out" });
+      tl.from(intro, { y: 30, opacity: 0, duration: 0.8, ease: "power2.out" }, "-=0.4");
+      tl.from(guideCards, { y: 30, opacity: 0, stagger: 0.15, duration: 0.8, ease: "power2.out" }, "-=0.4");
+      tl.from(cta, { y: 20, opacity: 0, duration: 0.6, ease: "power2.out" }, "-=0.3");
     }, section);
 
     return () => ctx.revert();

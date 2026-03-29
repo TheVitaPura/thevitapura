@@ -49,22 +49,17 @@ export default function SeasonalSection({
     if (!section || !bg || !left || !right) return;
 
     const ctx = gsap.context(() => {
-      gsap.from(left, {
-        x: -60,
-        opacity: 0,
-        duration: 1,
-        ease: "power2.out",
-        scrollTrigger: { trigger: section, start: "top 60%" },
-      });
-      gsap.from(right, {
-        x: 60,
-        opacity: 0,
-        duration: 1,
-        delay: 0.15,
-        ease: "power2.out",
-        scrollTrigger: { trigger: section, start: "top 60%" },
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "top 70%",
+          end: "bottom 30%",
+          toggleActions: "play reverse play reverse",
+        },
       });
 
+      tl.from(left, { x: -60, opacity: 0, duration: 0.8, ease: "power2.out" });
+      tl.from(right, { x: 60, opacity: 0, duration: 0.8, ease: "power2.out" }, "-=0.5");
     }, section);
 
     return () => ctx.revert();

@@ -56,23 +56,17 @@ export default function PrinciplesSection({
     const ctx = gsap.context(() => {
       const listItems = list.querySelectorAll(".principle-item");
 
-      gsap.from(title, {
-        x: -60,
-        opacity: 0,
-        duration: 1,
-        ease: "power2.out",
-        scrollTrigger: { trigger: section, start: "top 60%" },
-      });
-      gsap.from(listItems, {
-        x: 40,
-        opacity: 0,
-        stagger: 0.1,
-        duration: 0.8,
-        delay: 0.2,
-        ease: "power2.out",
-        scrollTrigger: { trigger: section, start: "top 60%" },
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "top 70%",
+          end: "bottom 30%",
+          toggleActions: "play reverse play reverse",
+        },
       });
 
+      tl.from(title, { x: -60, opacity: 0, duration: 0.8, ease: "power2.out" });
+      tl.from(listItems, { x: 40, opacity: 0, stagger: 0.1, duration: 0.6, ease: "power2.out" }, "-=0.4");
     }, section);
 
     return () => ctx.revert();
