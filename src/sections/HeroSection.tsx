@@ -65,7 +65,7 @@ export default function HeroSection({
   }, []);
 
   return (
-    <section ref={sectionRef} className="snap-section section-pinned z-10">
+    <section ref={sectionRef} className="section-pinned z-10">
       <img
         ref={bgRef}
         src="/images/hero_bg.jpg"

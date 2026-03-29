@@ -56,35 +56,21 @@ export default function PrinciplesSection({
     const ctx = gsap.context(() => {
       const listItems = list.querySelectorAll(".principle-item");
 
-      // Set initial state
-      gsap.set(title, { x: "-40vw", opacity: 0 });
-      gsap.set(listItems, { x: "40vw", opacity: 0 });
-
-      // Enter animation timeline
-      const enterTl = gsap.timeline({ paused: true });
-      enterTl.to(title, {
-        x: 0,
-        opacity: 1,
-        duration: 1.2,
+      gsap.from(title, {
+        x: -60,
+        opacity: 0,
+        duration: 1,
         ease: "power2.out",
+        scrollTrigger: { trigger: section, start: "top 60%" },
       });
-      enterTl.to(
-        listItems,
-        {
-          x: 0,
-          opacity: 1,
-          stagger: 0.12,
-          duration: 1,
-          ease: "power2.out",
-        },
-        0.15
-      );
-
-      ScrollTrigger.create({
-        trigger: section,
-        start: "top 95%",
-        onEnter: () => enterTl.play(),
-        onLeaveBack: () => enterTl.reverse(),
+      gsap.from(listItems, {
+        x: 40,
+        opacity: 0,
+        stagger: 0.1,
+        duration: 0.8,
+        delay: 0.2,
+        ease: "power2.out",
+        scrollTrigger: { trigger: section, start: "top 60%" },
       });
     }, section);
 
@@ -92,7 +78,7 @@ export default function PrinciplesSection({
   }, []);
 
   return (
-    <section ref={sectionRef} id="about" className="snap-section section-pinned z-40">
+    <section ref={sectionRef} id="about" className="section-pinned z-40">
       <img
         ref={bgRef}
         src="/images/principles_bg.jpg"

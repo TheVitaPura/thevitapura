@@ -44,36 +44,22 @@ export default function CategorySection({ categories }: CategorySectionProps) {
     const ctx = gsap.context(() => {
       const pills = pillsContainer.querySelectorAll(".category-pill");
 
-      // Set initial state
-      gsap.set(title, { x: -60, opacity: 0 });
-      gsap.set(pills, { y: 20, opacity: 0, scale: 0.95 });
-
-      // Enter animation timeline
-      const enterTl = gsap.timeline({ paused: true });
-      enterTl.to(title, {
-        x: 0,
-        opacity: 1,
+      gsap.from(title, {
+        x: -60,
+        opacity: 0,
         duration: 0.8,
         ease: "power2.out",
+        scrollTrigger: { trigger: section, start: "top 60%" },
       });
-      enterTl.to(
-        pills,
-        {
-          y: 0,
-          opacity: 1,
-          scale: 1,
-          stagger: 0.06,
-          duration: 0.6,
-          ease: "power2.out",
-        },
-        0.3
-      );
-
-      ScrollTrigger.create({
-        trigger: section,
-        start: "top 95%",
-        onEnter: () => enterTl.play(),
-        onLeaveBack: () => enterTl.reverse(),
+      gsap.from(pills, {
+        y: 20,
+        opacity: 0,
+        scale: 0.95,
+        stagger: 0.06,
+        duration: 0.6,
+        delay: 0.3,
+        ease: "power2.out",
+        scrollTrigger: { trigger: section, start: "top 60%" },
       });
     }, section);
 
@@ -81,7 +67,7 @@ export default function CategorySection({ categories }: CategorySectionProps) {
   }, []);
 
   return (
-    <section ref={sectionRef} className="snap-section section-pinned z-20">
+    <section ref={sectionRef} className="section-pinned z-20">
       <img
         ref={bgRef}
         src="/images/category_bg.jpg"

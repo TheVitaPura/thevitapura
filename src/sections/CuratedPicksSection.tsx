@@ -60,36 +60,22 @@ export default function CuratedPicksSection({
     const ctx = gsap.context(() => {
       const cardEls = cards.querySelectorAll(".product-card");
 
-      // Set initial state
-      gsap.set(title, { y: 30, opacity: 0 });
-      gsap.set(cardEls, { y: "15vh", opacity: 0, scale: 0.92 });
-
-      // Enter animation timeline
-      const enterTl = gsap.timeline({ paused: true });
-      enterTl.to(title, {
-        y: 0,
-        opacity: 1,
+      gsap.from(title, {
+        y: 30,
+        opacity: 0,
         duration: 1,
         ease: "power2.out",
+        scrollTrigger: { trigger: section, start: "top 60%" },
       });
-      enterTl.to(
-        cardEls,
-        {
-          y: 0,
-          opacity: 1,
-          scale: 1,
-          stagger: 0.15,
-          duration: 1.2,
-          ease: "power2.out",
-        },
-        0.2
-      );
-
-      ScrollTrigger.create({
-        trigger: section,
-        start: "top 95%",
-        onEnter: () => enterTl.play(),
-        onLeaveBack: () => enterTl.reverse(),
+      gsap.from(cardEls, {
+        y: 40,
+        opacity: 0,
+        scale: 0.95,
+        stagger: 0.15,
+        duration: 1,
+        delay: 0.2,
+        ease: "power2.out",
+        scrollTrigger: { trigger: section, start: "top 60%" },
       });
     }, section);
 
@@ -97,7 +83,7 @@ export default function CuratedPicksSection({
   }, []);
 
   return (
-    <section ref={sectionRef} id="picks" className="snap-section section-pinned z-30">
+    <section ref={sectionRef} id="picks" className="section-pinned z-30">
       <img
         ref={bgRef}
         src="/images/picks_bg.jpg"

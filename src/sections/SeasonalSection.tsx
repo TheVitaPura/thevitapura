@@ -49,34 +49,20 @@ export default function SeasonalSection({
     if (!section || !bg || !left || !right) return;
 
     const ctx = gsap.context(() => {
-      // Set initial state
-      gsap.set(left, { x: "-50vw", opacity: 0 });
-      gsap.set(right, { x: "50vw", opacity: 0 });
-
-      // Enter animation timeline
-      const enterTl = gsap.timeline({ paused: true });
-      enterTl.to(left, {
-        x: 0,
-        opacity: 1,
-        duration: 1.2,
+      gsap.from(left, {
+        x: -60,
+        opacity: 0,
+        duration: 1,
         ease: "power2.out",
+        scrollTrigger: { trigger: section, start: "top 60%" },
       });
-      enterTl.to(
-        right,
-        {
-          x: 0,
-          opacity: 1,
-          duration: 1.2,
-          ease: "power2.out",
-        },
-        0.15
-      );
-
-      ScrollTrigger.create({
-        trigger: section,
-        start: "top 95%",
-        onEnter: () => enterTl.play(),
-        onLeaveBack: () => enterTl.reverse(),
+      gsap.from(right, {
+        x: 60,
+        opacity: 0,
+        duration: 1,
+        delay: 0.15,
+        ease: "power2.out",
+        scrollTrigger: { trigger: section, start: "top 60%" },
       });
     }, section);
 
@@ -84,7 +70,7 @@ export default function SeasonalSection({
   }, []);
 
   return (
-    <section ref={sectionRef} className="snap-section section-pinned z-50">
+    <section ref={sectionRef} className="section-pinned z-50">
       <img
         ref={bgRef}
         src="/images/seasonal_bg.jpg"

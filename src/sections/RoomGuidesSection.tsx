@@ -77,7 +77,7 @@ export default function RoomGuidesSection({ guides }: RoomGuidesSectionProps) {
           ease: "power2.out",
           scrollTrigger: {
             trigger: title,
-            start: "top 95%",
+            start: "top 80%",
             toggleActions: "play none none none",
           },
         }
@@ -93,7 +93,7 @@ export default function RoomGuidesSection({ guides }: RoomGuidesSectionProps) {
           ease: "power2.out",
           scrollTrigger: {
             trigger: intro,
-            start: "top 95%",
+            start: "top 80%",
             toggleActions: "play none none none",
           },
         }
@@ -111,7 +111,7 @@ export default function RoomGuidesSection({ guides }: RoomGuidesSectionProps) {
           ease: "power2.out",
           scrollTrigger: {
             trigger: cards,
-            start: "top 95%",
+            start: "top 80%",
             toggleActions: "play none none none",
           },
         }
@@ -127,7 +127,7 @@ export default function RoomGuidesSection({ guides }: RoomGuidesSectionProps) {
           ease: "power2.out",
           scrollTrigger: {
             trigger: cta,
-            start: "top 95%",
+            start: "top 80%",
             toggleActions: "play none none none",
           },
         }
@@ -138,7 +138,7 @@ export default function RoomGuidesSection({ guides }: RoomGuidesSectionProps) {
   }, []);
 
   return (
-    <section ref={sectionRef} id="guides" className="snap-section-auto relative bg-sage-50 py-0">
+    <section ref={sectionRef} id="guides" className="relative bg-sage-50 py-0">
       <div className="h-[18vh] w-full overflow-hidden">
         <img
           src="/images/guides_banner.jpg"

@@ -50,7 +50,7 @@ export default function FooterSection({
           ease: "power2.out",
           scrollTrigger: {
             trigger: section,
-            start: "top 95%",
+            start: "top 80%",
             toggleActions: "play none none none",
           },
         }
@@ -61,7 +61,7 @@ export default function FooterSection({
   }, []);
 
   return (
-    <footer ref={sectionRef} className="snap-section-auto bg-sage-100 py-16 px-[7vw]">
+    <footer ref={sectionRef} className="bg-sage-100 py-16 px-[7vw]">
       <div className="max-w-[1200px] mx-auto">
         <div className="flex flex-col md:flex-row justify-between gap-12 mb-12">
           <div ref={leftRef} className="md:w-[40vw]">
