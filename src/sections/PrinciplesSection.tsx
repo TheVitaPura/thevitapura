@@ -121,7 +121,7 @@ export default function PrinciplesSection({
             );
           })}
           <a
-            href="#guides"
+            href="/how-we-test"
             className="principle-item inline-flex items-center gap-2 text-olive hover:text-olive-dark transition-colors text-sm font-medium mt-4 ml-4"
           >
             See how we test

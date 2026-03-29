@@ -164,8 +164,9 @@ export default function RoomGuidesSection({ guides }: RoomGuidesSectionProps) {
           {items.map((guide) => {
             const IconComponent = ICON_MAP[guide.icon] || KitchenIcon;
             return (
-              <div
+              <a
                 key={guide.title}
+                href={`/guides/${guide.title.toLowerCase().replace(/\s+&?\s*/g, "-")}`}
                 className="guide-card flex items-start gap-5 p-6 bg-white rounded-2xl shadow-card hover:shadow-card-hover transition-shadow cursor-pointer group"
               >
                 <div className="w-12 h-12 flex items-center justify-center bg-sage-100 rounded-xl shrink-0">
@@ -180,7 +181,7 @@ export default function RoomGuidesSection({ guides }: RoomGuidesSectionProps) {
                   </p>
                 </div>
                 <ChevronRightIcon className="w-5 h-5 text-sage-400 group-hover:text-olive group-hover:translate-x-1 transition-all shrink-0 mt-1" />
-              </div>
+              </a>
             );
           })}
         </div>
