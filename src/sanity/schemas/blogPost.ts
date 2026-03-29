@@ -64,6 +64,17 @@ export default defineType({
             },
           ],
         },
+        {
+          type: "file",
+          title: "File Attachment",
+          fields: [
+            {
+              name: "description",
+              title: "Description",
+              type: "string",
+            },
+          ],
+        },
       ],
     }),
     defineField({
