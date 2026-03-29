@@ -1,30 +1,32 @@
-"use client";
+import PageClient from "@/components/PageClient";
+import {
+  getSiteSettings,
+  getProducts,
+  getGuides,
+  getPrinciples,
+  getCategories,
+  getNavLinks,
+} from "@/sanity/queries";
 
-import Navigation from "@/components/Navigation";
-import HeroSection from "@/sections/HeroSection";
-import CategorySection from "@/sections/CategorySection";
-import CuratedPicksSection from "@/sections/CuratedPicksSection";
-import PrinciplesSection from "@/sections/PrinciplesSection";
-import SeasonalSection from "@/sections/SeasonalSection";
-import RoomGuidesSection from "@/sections/RoomGuidesSection";
-import NewsletterSection from "@/sections/NewsletterSection";
-import FooterSection from "@/sections/FooterSection";
+export default async function Home() {
+  const [settings, products, guides, principles, categories, navLinks] =
+    await Promise.all([
+      getSiteSettings(),
+      getProducts(),
+      getGuides(),
+      getPrinciples(),
+      getCategories(),
+      getNavLinks(),
+    ]);
 
-export default function Home() {
   return (
-    <>
-      <Navigation />
-      <div className="grain-overlay" />
-      <main>
-        <HeroSection />
-        <CategorySection />
-        <CuratedPicksSection />
-        <PrinciplesSection />
-        <SeasonalSection />
-        <RoomGuidesSection />
-        <NewsletterSection />
-      </main>
-      <FooterSection />
-    </>
+    <PageClient
+      settings={settings}
+      products={products ?? []}
+      guides={guides ?? []}
+      principles={principles ?? []}
+      categories={categories ?? []}
+      navLinks={navLinks ?? []}
+    />
   );
 }

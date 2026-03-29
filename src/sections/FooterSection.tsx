@@ -9,10 +9,28 @@ gsap.registerPlugin(ScrollTrigger);
 
 const FOOTER_LINKS = ["About", "Editorial Standards", "Privacy", "Terms"];
 
-export default function FooterSection() {
+const DEFAULT_EMAIL = "hello@cleanlivinghaven.com";
+const DEFAULT_COPYRIGHT = "The Vita Pura";
+const DEFAULT_DISCLAIMER = "Affiliate links support our work\u2014thank you.";
+
+interface FooterSectionProps {
+  contactEmail?: string;
+  copyright?: string;
+  disclaimer?: string;
+}
+
+export default function FooterSection({
+  contactEmail,
+  copyright,
+  disclaimer,
+}: FooterSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const leftRef = useRef<HTMLDivElement>(null);
   const rightRef = useRef<HTMLDivElement>(null);
+
+  const email = contactEmail || DEFAULT_EMAIL;
+  const copyrightText = copyright || DEFAULT_COPYRIGHT;
+  const disclaimerText = disclaimer || DEFAULT_DISCLAIMER;
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -50,11 +68,11 @@ export default function FooterSection() {
               Contact
             </h3>
             <a
-              href="mailto:hello@cleanlivinghaven.com"
+              href={`mailto:${email}`}
               className="flex items-center gap-2 text-olive hover:text-olive-dark transition-colors text-lg mb-2"
             >
               <MailIcon className="w-5 h-5" />
-              hello@cleanlivinghaven.com
+              {email}
             </a>
             <p className="text-sage-600 text-sm">
               We reply within 1&ndash;2 business days.
@@ -93,8 +111,8 @@ export default function FooterSection() {
           </div>
         </div>
         <div className="border-t border-sage-200 pt-8 flex flex-col sm:flex-row justify-between gap-4 text-sage-500 text-sm">
-          <p>&copy; The Vita Pura</p>
-          <p>Affiliate links support our work&mdash;thank you.</p>
+          <p>&copy; {copyrightText}</p>
+          <p>{disclaimerText}</p>
         </div>
       </div>
     </footer>

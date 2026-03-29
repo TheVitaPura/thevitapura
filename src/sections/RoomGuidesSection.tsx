@@ -12,33 +12,51 @@ import {
 
 gsap.registerPlugin(ScrollTrigger);
 
-const GUIDES = [
+const ICON_MAP: Record<string, typeof KitchenIcon> = {
+  kitchen: KitchenIcon,
+  bathroom: BathroomIcon,
+  laundry: LaundryIcon,
+};
+
+const DEFAULT_GUIDES = [
   {
-    icon: KitchenIcon,
+    icon: "kitchen",
     title: "Kitchen",
     description:
       "Dish soaps, cleaners, and food storage that skip the plastic and the perfume.",
   },
   {
-    icon: BathroomIcon,
+    icon: "bathroom",
     title: "Bathroom",
     description:
       "Personal care swaps with transparent ingredients\u2014and refill options.",
   },
   {
-    icon: LaundryIcon,
+    icon: "laundry",
     title: "Laundry",
     description:
       "Concentrates, dryer alternatives, and stain removers that actually work.",
   },
 ];
 
-export default function RoomGuidesSection() {
+interface GuideItem {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+interface RoomGuidesSectionProps {
+  guides?: GuideItem[];
+}
+
+export default function RoomGuidesSection({ guides }: RoomGuidesSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const introRef = useRef<HTMLParagraphElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
+
+  const items = guides?.length ? guides : DEFAULT_GUIDES;
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -139,25 +157,28 @@ export default function RoomGuidesSection() {
           picks, ingredient notes, and simple routines.
         </p>
         <div ref={cardsRef} className="space-y-6">
-          {GUIDES.map((guide) => (
-            <div
-              key={guide.title}
-              className="guide-card flex items-start gap-5 p-6 bg-white rounded-2xl shadow-card hover:shadow-card-hover transition-shadow cursor-pointer group"
-            >
-              <div className="w-12 h-12 flex items-center justify-center bg-sage-100 rounded-xl shrink-0">
-                <guide.icon className="w-6 h-6 text-olive" />
+          {items.map((guide) => {
+            const IconComponent = ICON_MAP[guide.icon] || KitchenIcon;
+            return (
+              <div
+                key={guide.title}
+                className="guide-card flex items-start gap-5 p-6 bg-white rounded-2xl shadow-card hover:shadow-card-hover transition-shadow cursor-pointer group"
+              >
+                <div className="w-12 h-12 flex items-center justify-center bg-sage-100 rounded-xl shrink-0">
+                  <IconComponent className="w-6 h-6 text-olive" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-display font-semibold text-xl text-sage-900 mb-2 group-hover:text-olive transition-colors">
+                    {guide.title}
+                  </h3>
+                  <p className="text-sage-600 leading-relaxed">
+                    {guide.description}
+                  </p>
+                </div>
+                <ChevronRightIcon className="w-5 h-5 text-sage-400 group-hover:text-olive group-hover:translate-x-1 transition-all shrink-0 mt-1" />
               </div>
-              <div className="flex-1">
-                <h3 className="font-display font-semibold text-xl text-sage-900 mb-2 group-hover:text-olive transition-colors">
-                  {guide.title}
-                </h3>
-                <p className="text-sage-600 leading-relaxed">
-                  {guide.description}
-                </p>
-              </div>
-              <ChevronRightIcon className="w-5 h-5 text-sage-400 group-hover:text-olive group-hover:translate-x-1 transition-all shrink-0 mt-1" />
-            </div>
-          ))}
+            );
+          })}
         </div>
         <div ref={ctaRef} className="mt-10 text-center">
           <a

@@ -41,11 +41,40 @@ export async function getBlogPost(slug: string) {
 export async function getSiteSettings() {
   return client.fetch(
     `*[_type == "siteSettings"][0] {
-      siteName, tagline, heroDescription,
-      seasonalTitle, seasonalDescription,
+      siteName, heroHeadingWords, heroDescription,
+      heroPrimaryCta, heroSecondaryCta,
+      seasonalLabel, seasonalTitle, seasonalDescription,
       featuredGuideTitle, featuredGuideDescription,
       newsletterHeadline, newsletterDescription,
-      contactEmail
+      newsletterSuccessMessage, newsletterButtonText,
+      contactEmail, footerCopyright, footerDisclaimer
+    }`
+  );
+}
+
+// Fetch principles, ordered
+export async function getPrinciples() {
+  return client.fetch(
+    `*[_type == "principle"] | order(order asc) {
+      _id, icon, text
+    }`
+  );
+}
+
+// Fetch categories, ordered
+export async function getCategories() {
+  return client.fetch(
+    `*[_type == "category"] | order(order asc) {
+      _id, name
+    }`
+  );
+}
+
+// Fetch navigation links, ordered
+export async function getNavLinks() {
+  return client.fetch(
+    `*[_type == "navLink"] | order(order asc) {
+      _id, label, href
     }`
   );
 }

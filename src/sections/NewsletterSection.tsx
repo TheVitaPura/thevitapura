@@ -6,11 +6,34 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function NewsletterSection() {
+const DEFAULT_HEADLINE = "Get one clean swap a week.";
+const DEFAULT_DESCRIPTION =
+  "Join 12,000+ readers. We test products, explain ingredients, and share deals\u2014no spam, ever.";
+const DEFAULT_SUCCESS = "Welcome! Check your inbox for a confirmation.";
+const DEFAULT_BUTTON = "Join the list";
+
+interface NewsletterSectionProps {
+  headline?: string;
+  description?: string;
+  successMessage?: string;
+  buttonText?: string;
+}
+
+export default function NewsletterSection({
+  headline,
+  description,
+  successMessage,
+  buttonText,
+}: NewsletterSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+
+  const headlineText = headline || DEFAULT_HEADLINE;
+  const descText = description || DEFAULT_DESCRIPTION;
+  const successText = successMessage || DEFAULT_SUCCESS;
+  const btnText = buttonText || DEFAULT_BUTTON;
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -61,17 +84,16 @@ export default function NewsletterSection() {
         className="relative z-10 max-w-[720px] mx-auto px-6 text-center"
       >
         <h2 className="font-display font-semibold text-[clamp(34px,3.6vw,52px)] leading-[1.0] text-sage-900 mb-4">
-          Get one clean swap a week.
+          {headlineText}
         </h2>
         <p className="text-lg text-sage-700 leading-relaxed mb-8 max-w-[560px] mx-auto">
-          Join 12,000+ readers. We test products, explain ingredients, and share
-          deals&mdash;no spam, ever.
+          {descText}
         </p>
 
         {submitted ? (
           <div className="px-8 py-4 bg-sage-100 rounded-full inline-block">
             <span className="text-olive font-medium">
-              Welcome! Check your inbox for a confirmation.
+              {successText}
             </span>
           </div>
         ) : (
@@ -91,7 +113,7 @@ export default function NewsletterSection() {
               type="submit"
               className="btn-hover px-8 py-4 bg-olive text-cream rounded-full font-medium text-sm tracking-wide whitespace-nowrap"
             >
-              Join the list
+              {btnText}
             </button>
           </form>
         )}

@@ -6,7 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const CATEGORIES = [
+const DEFAULT_CATEGORIES = [
   "Kitchen",
   "Bathroom",
   "Laundry",
@@ -16,11 +16,18 @@ const CATEGORIES = [
   "Pets",
 ];
 
-export default function CategorySection() {
+interface CategorySectionProps {
+  categories?: { name: string }[];
+}
+
+export default function CategorySection({ categories }: CategorySectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const pillsRef = useRef<HTMLDivElement>(null);
   const bgRef = useRef<HTMLImageElement>(null);
+
+  const categoryNames =
+    categories?.length ? categories.map((c) => c.name) : DEFAULT_CATEGORIES;
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -105,7 +112,7 @@ export default function CategorySection() {
           ref={pillsRef}
           className="absolute left-[52vw] top-[22vh] w-[40vw] h-[56vh] flex flex-wrap content-start gap-3"
         >
-          {CATEGORIES.map((cat, i) => (
+          {categoryNames.map((cat, i) => (
             <span
               key={cat}
               className="category-pill pill-hover px-6 py-3 bg-white/80 backdrop-blur-sm border border-sage-200 rounded-full text-sage-800 font-medium text-sm whitespace-nowrap"

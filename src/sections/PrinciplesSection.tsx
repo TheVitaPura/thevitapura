@@ -13,18 +13,38 @@ import {
 
 gsap.registerPlugin(ScrollTrigger);
 
-const PRINCIPLES = [
-  { icon: NoFragranceIcon, text: "No synthetic fragrance / phthalates" },
-  { icon: NoParabensIcon, text: "No parabens or formaldehyde releasers" },
-  { icon: BiodegradableIcon, text: "Biodegradable where possible" },
-  { icon: CrueltyFreeIcon, text: "Cruelty-free & transparent sourcing" },
+const ICON_MAP: Record<string, typeof NoFragranceIcon> = {
+  fragrance: NoFragranceIcon,
+  parabens: NoParabensIcon,
+  biodegradable: BiodegradableIcon,
+  crueltyFree: CrueltyFreeIcon,
+};
+
+const DEFAULT_PRINCIPLES = [
+  { icon: "fragrance", text: "No synthetic fragrance / phthalates" },
+  { icon: "parabens", text: "No parabens or formaldehyde releasers" },
+  { icon: "biodegradable", text: "Biodegradable where possible" },
+  { icon: "crueltyFree", text: "Cruelty-free & transparent sourcing" },
 ];
 
-export default function PrinciplesSection() {
+interface PrincipleItem {
+  icon: string;
+  text: string;
+}
+
+interface PrinciplesSectionProps {
+  principles?: PrincipleItem[];
+}
+
+export default function PrinciplesSection({
+  principles,
+}: PrinciplesSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const bgRef = useRef<HTMLImageElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
+
+  const items = principles?.length ? principles : DEFAULT_PRINCIPLES;
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -34,7 +54,7 @@ export default function PrinciplesSection() {
     if (!section || !bg || !title || !list) return;
 
     const ctx = gsap.context(() => {
-      const items = list.querySelectorAll(".principle-item");
+      const listItems = list.querySelectorAll(".principle-item");
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -56,7 +76,7 @@ export default function PrinciplesSection() {
 
       // Animate principle items in
       tl.fromTo(
-        items,
+        listItems,
         { x: "40vw", opacity: 0 },
         { x: 0, opacity: 1, stagger: 0.04, ease: "none" },
         0.05
@@ -69,7 +89,7 @@ export default function PrinciplesSection() {
         { opacity: 0, x: "-15vw", ease: "power2.in" },
         0.72
       ).fromTo(
-        items,
+        listItems,
         { opacity: 1 },
         { opacity: 0, x: "15vw", stagger: 0.02, ease: "power2.in" },
         0.72
@@ -103,17 +123,20 @@ export default function PrinciplesSection() {
           ref={listRef}
           className="absolute left-[56vw] top-[22vh] w-[36vw] space-y-5"
         >
-          {PRINCIPLES.map((item) => (
-            <div
-              key={item.text}
-              className="principle-item flex items-center gap-4 p-4 bg-white/70 backdrop-blur-sm rounded-xl"
-            >
-              <div className="w-10 h-10 flex items-center justify-center bg-sage-100 rounded-full">
-                <item.icon className="w-5 h-5 text-olive" />
+          {items.map((item) => {
+            const IconComponent = ICON_MAP[item.icon] || NoFragranceIcon;
+            return (
+              <div
+                key={item.text}
+                className="principle-item flex items-center gap-4 p-4 bg-white/70 backdrop-blur-sm rounded-xl"
+              >
+                <div className="w-10 h-10 flex items-center justify-center bg-sage-100 rounded-full">
+                  <IconComponent className="w-5 h-5 text-olive" />
+                </div>
+                <span className="text-sage-800 font-medium">{item.text}</span>
               </div>
-              <span className="text-sage-800 font-medium">{item.text}</span>
-            </div>
-          ))}
+            );
+          })}
           <a
             href="#guides"
             className="principle-item inline-flex items-center gap-2 text-olive hover:text-olive-dark transition-colors text-sm font-medium mt-4 ml-4"

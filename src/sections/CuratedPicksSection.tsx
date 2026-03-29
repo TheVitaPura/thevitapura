@@ -7,7 +7,7 @@ import { ArrowUpRightIcon } from "@/components/icons";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const PRODUCTS = [
+const DEFAULT_PRODUCTS: ProductItem[] = [
   {
     tag: "Dish Soap",
     name: "Grove Co. Dish Soap",
@@ -28,11 +28,27 @@ const PRODUCTS = [
   },
 ];
 
-export default function CuratedPicksSection() {
+interface ProductItem {
+  tag: string;
+  name: string;
+  description: string;
+  link?: string;
+  cta: string;
+}
+
+interface CuratedPicksSectionProps {
+  products?: ProductItem[];
+}
+
+export default function CuratedPicksSection({
+  products,
+}: CuratedPicksSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const bgRef = useRef<HTMLImageElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
+
+  const items = products?.length ? products : DEFAULT_PRODUCTS;
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -111,12 +127,12 @@ export default function CuratedPicksSection() {
           ref={cardsRef}
           className="flex items-center justify-center gap-6 mt-[10vh] px-[7vw]"
         >
-          {PRODUCTS.map((product) => (
+          {items.map((product, idx) => (
             <div
               key={product.name}
               className="product-card w-[26vw] min-w-[280px] max-w-[380px] bg-white rounded-2xl shadow-card p-6 animate-float"
               style={{
-                animationDelay: `${PRODUCTS.indexOf(product) * 0.8}s`,
+                animationDelay: `${idx * 0.8}s`,
               }}
             >
               <span className="inline-block px-3 py-1 bg-sage-100 text-olive text-xs font-medium rounded-full mb-4">
@@ -129,7 +145,7 @@ export default function CuratedPicksSection() {
                 {product.description}
               </p>
               <a
-                href="#"
+                href={product.link || "#"}
                 className="flex items-center gap-2 text-olive hover:text-olive-dark transition-colors text-sm font-medium group"
               >
                 {product.cta}

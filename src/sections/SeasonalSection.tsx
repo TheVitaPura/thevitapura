@@ -7,11 +7,39 @@ import { ArrowRightIcon } from "@/components/icons";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function SeasonalSection() {
+const DEFAULT_LABEL = "Seasonal edit";
+const DEFAULT_TITLE = "Spring refresh.";
+const DEFAULT_DESCRIPTION =
+  "Open windows, lighter scents, and a few swaps that make the whole room feel new.";
+const DEFAULT_GUIDE_TITLE = "The 10-Minute Bathroom Reset";
+const DEFAULT_GUIDE_DESCRIPTION =
+  "Low-waste tools + a cleaning routine that actually fits your week.";
+
+interface SeasonalSectionProps {
+  label?: string;
+  title?: string;
+  description?: string;
+  featuredGuideTitle?: string;
+  featuredGuideDescription?: string;
+}
+
+export default function SeasonalSection({
+  label,
+  title,
+  description,
+  featuredGuideTitle,
+  featuredGuideDescription,
+}: SeasonalSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const bgRef = useRef<HTMLImageElement>(null);
   const leftRef = useRef<HTMLDivElement>(null);
   const rightRef = useRef<HTMLDivElement>(null);
+
+  const sLabel = label || DEFAULT_LABEL;
+  const sTitle = title || DEFAULT_TITLE;
+  const sDescription = description || DEFAULT_DESCRIPTION;
+  const gTitle = featuredGuideTitle || DEFAULT_GUIDE_TITLE;
+  const gDescription = featuredGuideDescription || DEFAULT_GUIDE_DESCRIPTION;
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -77,14 +105,13 @@ export default function SeasonalSection() {
       <div className="absolute inset-0 flex items-center">
         <div ref={leftRef} className="absolute left-[7vw] top-[18vh] w-[40vw]">
           <p className="text-xs uppercase tracking-[0.18em] text-sage-600 mb-4">
-            Seasonal edit
+            {sLabel}
           </p>
           <h2 className="font-display font-semibold text-[clamp(34px,3.6vw,52px)] leading-[1.0] text-sage-900 mb-6">
-            Spring refresh.
+            {sTitle}
           </h2>
           <p className="text-lg text-sage-700 leading-relaxed">
-            Open windows, lighter scents, and a few swaps that make the whole
-            room feel new.
+            {sDescription}
           </p>
         </div>
         <div ref={rightRef} className="absolute left-[56vw] top-[24vh] w-[36vw]">
@@ -93,10 +120,10 @@ export default function SeasonalSection() {
               Guide
             </span>
             <h3 className="font-display font-semibold text-2xl text-sage-900 mb-3">
-              The 10-Minute Bathroom Reset
+              {gTitle}
             </h3>
             <p className="text-sage-600 leading-relaxed mb-6">
-              Low-waste tools + a cleaning routine that actually fits your week.
+              {gDescription}
             </p>
             <a
               href="#guides"

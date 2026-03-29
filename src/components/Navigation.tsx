@@ -2,15 +2,23 @@
 
 import { useState, useEffect } from "react";
 
-const NAV_LINKS = [
+const DEFAULT_LINKS = [
   { label: "Shop", href: "#picks" },
   { label: "Read", href: "#guides" },
   { label: "About", href: "#about" },
   { label: "Newsletter", href: "#newsletter" },
 ];
 
-export default function Navigation() {
+interface NavigationProps {
+  siteName?: string;
+  links?: { label: string; href: string }[];
+}
+
+export default function Navigation({ siteName, links }: NavigationProps) {
   const [scrolled, setScrolled] = useState(false);
+
+  const name = siteName || "The Vita Pura";
+  const navLinks = links?.length ? links : DEFAULT_LINKS;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,10 +41,10 @@ export default function Navigation() {
           href="#"
           className="font-display font-semibold text-xl transition-colors text-sage-900"
         >
-          The Vita Pura
+          {name}
         </a>
         <div className="hidden md:flex items-center gap-8">
-          {NAV_LINKS.map((link) => (
+          {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
