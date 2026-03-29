@@ -1,3 +1,5 @@
+export const revalidate = 60; // refresh content from Sanity every 60 seconds
+
 import PageClient from "@/components/PageClient";
 import {
   getSiteSettings,
