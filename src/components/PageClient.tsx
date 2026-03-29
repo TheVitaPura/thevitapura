@@ -55,6 +55,7 @@ export interface PrincipleData {
 export interface CategoryData {
   _id: string;
   name: string;
+  link?: string;
 }
 
 export interface NavLinkData {

@@ -11,6 +11,12 @@ export default defineType({
       type: "string",
     }),
     defineField({
+      name: "link",
+      title: "Link URL",
+      type: "string",
+      description: "Where this button goes when clicked (e.g. /blog, #picks, or a full URL)",
+    }),
+    defineField({
       name: "order",
       title: "Display Order",
       type: "number",

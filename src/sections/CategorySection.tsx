@@ -16,8 +16,13 @@ const DEFAULT_CATEGORIES = [
   "Pets",
 ];
 
+interface CategoryItem {
+  name: string;
+  link?: string;
+}
+
 interface CategorySectionProps {
-  categories?: { name: string }[];
+  categories?: CategoryItem[];
 }
 
 export default function CategorySection({ categories }: CategorySectionProps) {
@@ -26,8 +31,8 @@ export default function CategorySection({ categories }: CategorySectionProps) {
   const pillsRef = useRef<HTMLDivElement>(null);
   const bgRef = useRef<HTMLImageElement>(null);
 
-  const categoryNames =
-    categories?.length ? categories.map((c) => c.name) : DEFAULT_CATEGORIES;
+  const items: CategoryItem[] =
+    categories?.length ? categories : DEFAULT_CATEGORIES.map((name) => ({ name }));
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -112,17 +117,18 @@ export default function CategorySection({ categories }: CategorySectionProps) {
           ref={pillsRef}
           className="absolute left-[52vw] top-[22vh] w-[40vw] h-[56vh] flex flex-wrap content-start gap-3"
         >
-          {categoryNames.map((cat, i) => (
-            <span
-              key={cat}
+          {items.map((cat, i) => (
+            <a
+              key={cat.name}
+              href={cat.link || "#"}
               className="category-pill pill-hover px-6 py-3 bg-white/80 backdrop-blur-sm border border-sage-200 rounded-full text-sage-800 font-medium text-sm whitespace-nowrap"
               style={{
                 marginLeft: i % 3 === 1 ? "1.5rem" : i % 3 === 2 ? "0.5rem" : "0",
                 marginTop: i > 2 ? "0.75rem" : "0",
               }}
             >
-              {cat}
-            </span>
+              {cat.name}
+            </a>
           ))}
         </div>
       </div>

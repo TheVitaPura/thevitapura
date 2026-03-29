@@ -65,7 +65,7 @@ export async function getPrinciples() {
 export async function getCategories() {
   return client.fetch(
     `*[_type == "category"] | order(order asc) {
-      _id, name
+      _id, name, link
     }`
   );
 }
