@@ -55,12 +55,6 @@ export default function HeroSection({
       enterTl.to(wordEls, {
         y: 0, opacity: 1, stagger: 0.12, duration: 1.2, ease: "power2.out",
       });
-
-      // Exit as you scroll away
-      gsap.to(content, {
-        y: -60, opacity: 0, duration: 0.6, ease: "power2.in",
-        scrollTrigger: { trigger: section, start: "bottom 60%", scrub: true },
-      });
     }, section);
 
     return () => ctx.revert();

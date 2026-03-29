@@ -73,15 +73,6 @@ export default function PrinciplesSection({
         scrollTrigger: { trigger: section, start: "top 60%" },
       });
 
-      // Exit
-      gsap.to(title, {
-        x: -80, opacity: 0, duration: 0.6, ease: "power2.in",
-        scrollTrigger: { trigger: section, start: "bottom 60%", scrub: true },
-      });
-      gsap.to(listItems, {
-        x: 60, opacity: 0, stagger: 0.03, duration: 0.6, ease: "power2.in",
-        scrollTrigger: { trigger: section, start: "bottom 60%", scrub: true },
-      });
     }, section);
 
     return () => ctx.revert();

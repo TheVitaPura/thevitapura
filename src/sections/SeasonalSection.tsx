@@ -65,15 +65,6 @@ export default function SeasonalSection({
         scrollTrigger: { trigger: section, start: "top 60%" },
       });
 
-      // Exit
-      gsap.to(left, {
-        x: -80, opacity: 0, duration: 0.6, ease: "power2.in",
-        scrollTrigger: { trigger: section, start: "bottom 60%", scrub: true },
-      });
-      gsap.to(right, {
-        x: 80, opacity: 0, duration: 0.6, ease: "power2.in",
-        scrollTrigger: { trigger: section, start: "bottom 60%", scrub: true },
-      });
     }, section);
 
     return () => ctx.revert();
