@@ -23,6 +23,12 @@ export default async function GuidesPage() {
       </nav>
 
       <div className="max-w-[920px] mx-auto px-6 py-16">
+        <Link
+          href="/"
+          className="text-olive hover:text-olive-dark transition-colors text-sm font-medium mb-8 inline-block"
+        >
+          &larr; Back to home
+        </Link>
         <h1 className="font-display font-semibold text-[clamp(34px,3.6vw,52px)] leading-[1.0] text-sage-900 mb-4">
           All Guides
         </h1>
