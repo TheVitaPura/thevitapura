@@ -28,6 +28,10 @@
 }
 
 /* Global styles */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: #f6f7f3;
   color: #1f261c;

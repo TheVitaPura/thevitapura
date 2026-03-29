@@ -108,7 +108,7 @@ export default function PrinciplesSection({
       ScrollTrigger.create({
         trigger: section,
         start: "top top",
-        end: "+=130%",
+        end: "+=100%",
         pin: true,
         onEnter: () => enterTl.play(),
         onLeave: () => exitTl.play(),
