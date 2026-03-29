@@ -88,8 +88,8 @@ export default function HeroSection({
       >
         <h1 className="font-display font-semibold text-[clamp(44px,5vw,72px)] leading-[0.95] tracking-[-0.01em] text-sage-900 max-w-[46vw]">
           {words.map((word, i) => (
-            <span key={i} className="word inline-block">
-              {word}{" "}
+            <span key={i} className="word inline-block mr-[0.3em]">
+              {word}
             </span>
           ))}
         </h1>
