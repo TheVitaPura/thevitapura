@@ -51,7 +51,7 @@ export default function NewsletterSection({
           ease: "power2.out",
           scrollTrigger: {
             trigger: section,
-            start: "top 80%",
+            start: "top 95%",
             toggleActions: "play none none none",
           },
         }

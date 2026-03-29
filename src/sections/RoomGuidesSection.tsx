@@ -77,7 +77,7 @@ export default function RoomGuidesSection({ guides }: RoomGuidesSectionProps) {
           ease: "power2.out",
           scrollTrigger: {
             trigger: title,
-            start: "top 80%",
+            start: "top 95%",
             toggleActions: "play none none none",
           },
         }
@@ -93,7 +93,7 @@ export default function RoomGuidesSection({ guides }: RoomGuidesSectionProps) {
           ease: "power2.out",
           scrollTrigger: {
             trigger: intro,
-            start: "top 80%",
+            start: "top 95%",
             toggleActions: "play none none none",
           },
         }
@@ -111,7 +111,7 @@ export default function RoomGuidesSection({ guides }: RoomGuidesSectionProps) {
           ease: "power2.out",
           scrollTrigger: {
             trigger: cards,
-            start: "top 85%",
+            start: "top 95%",
             toggleActions: "play none none none",
           },
         }
@@ -127,7 +127,7 @@ export default function RoomGuidesSection({ guides }: RoomGuidesSectionProps) {
           ease: "power2.out",
           scrollTrigger: {
             trigger: cta,
-            start: "top 85%",
+            start: "top 95%",
             toggleActions: "play none none none",
           },
         }

@@ -50,21 +50,14 @@ export default function HeroSection({
       gsap.set(wordEls, { y: 40, opacity: 0 });
       gsap.set(content, { x: 0, opacity: 1 });
 
-      // Enter animation timeline
-      const enterTl = gsap.timeline({ paused: true });
+      // Hero is the first section — play immediately on page load (no ScrollTrigger)
+      const enterTl = gsap.timeline({ delay: 0.3 });
       enterTl.to(wordEls, {
         y: 0,
         opacity: 1,
         stagger: 0.12,
         duration: 1.2,
         ease: "power2.out",
-      });
-
-      ScrollTrigger.create({
-        trigger: section,
-        start: "top 80%",
-        onEnter: () => enterTl.play(),
-        onLeaveBack: () => enterTl.reverse(),
       });
     }, section);
 

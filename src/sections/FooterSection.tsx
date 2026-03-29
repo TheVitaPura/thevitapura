@@ -50,7 +50,7 @@ export default function FooterSection({
           ease: "power2.out",
           scrollTrigger: {
             trigger: section,
-            start: "top 85%",
+            start: "top 95%",
             toggleActions: "play none none none",
           },
         }

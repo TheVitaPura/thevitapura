@@ -87,7 +87,7 @@ export default function CuratedPicksSection({
 
       ScrollTrigger.create({
         trigger: section,
-        start: "top 80%",
+        start: "top 95%",
         onEnter: () => enterTl.play(),
         onLeaveBack: () => enterTl.reverse(),
       });
