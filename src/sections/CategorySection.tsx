@@ -45,64 +45,34 @@ export default function CategorySection({ categories }: CategorySectionProps) {
       const pills = pillsContainer.querySelectorAll(".category-pill");
 
       // Set initial state
-      gsap.set(title, { x: "-55vw", opacity: 0 });
-      gsap.set(pills, { x: "55vw", y: "10vh", opacity: 0, scale: 0.92 });
+      gsap.set(title, { x: -60, opacity: 0 });
+      gsap.set(pills, { y: 20, opacity: 0, scale: 0.95 });
 
       // Enter animation timeline
       const enterTl = gsap.timeline({ paused: true });
       enterTl.to(title, {
         x: 0,
         opacity: 1,
-        duration: 1.2,
+        duration: 0.8,
         ease: "power2.out",
       });
       enterTl.to(
         pills,
         {
-          x: 0,
           y: 0,
           opacity: 1,
           scale: 1,
-          stagger: 0.1,
-          duration: 1,
+          stagger: 0.06,
+          duration: 0.6,
           ease: "power2.out",
         },
-        0.15
-      );
-
-      // Exit animation timeline
-      const exitTl = gsap.timeline({ paused: true });
-      exitTl.to(title, {
-        x: "-18vw",
-        opacity: 0,
-        duration: 0.7,
-        ease: "power2.in",
-      });
-      exitTl.to(
-        pills,
-        {
-          x: "18vw",
-          opacity: 0,
-          stagger: 0.05,
-          duration: 0.6,
-          ease: "power2.in",
-        },
-        0.05
-      );
-      exitTl.to(
-        bg,
-        { scale: 1.06, y: "-2vh", duration: 0.8, ease: "power2.in" },
-        0
+        0.3
       );
 
       ScrollTrigger.create({
         trigger: section,
-        start: "top top",
-        end: "+=100%",
-        pin: true,
+        start: "top 80%",
         onEnter: () => enterTl.play(),
-        onLeave: () => exitTl.play(),
-        onEnterBack: () => exitTl.reverse(),
         onLeaveBack: () => enterTl.reverse(),
       });
     }, section);
@@ -111,7 +81,7 @@ export default function CategorySection({ categories }: CategorySectionProps) {
   }, []);
 
   return (
-    <section ref={sectionRef} className="section-pinned z-20">
+    <section ref={sectionRef} className="snap-section section-pinned z-20">
       <img
         ref={bgRef}
         src="/images/category_bg.jpg"

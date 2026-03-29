@@ -138,7 +138,7 @@ export default function RoomGuidesSection({ guides }: RoomGuidesSectionProps) {
   }, []);
 
   return (
-    <section ref={sectionRef} id="guides" className="relative bg-sage-50 py-0">
+    <section ref={sectionRef} id="guides" className="snap-section-auto relative bg-sage-50 py-0">
       <div className="h-[18vh] w-full overflow-hidden">
         <img
           src="/images/guides_banner.jpg"

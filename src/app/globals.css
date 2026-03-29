@@ -29,7 +29,7 @@
 
 /* Global styles */
 html {
-  scroll-behavior: smooth;
+  /* no scroll-behavior: smooth — conflicts with scroll-snap */
 }
 
 body {
@@ -39,7 +39,34 @@ body {
   overflow-x: hidden;
 }
 
-/* Section pinned - full viewport sections for GSAP scroll pinning */
+/* Scroll-snap container */
+.snap-container {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Full-height snap sections */
+.snap-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-height: 100vh;
+  position: relative;
+  width: 100vw;
+  overflow: hidden;
+  will-change: transform;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+/* Auto-height snap sections (RoomGuides, Newsletter, Footer) */
+.snap-section-auto {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* Section pinned - kept for styling, no longer used for GSAP pinning */
 .section-pinned {
   position: relative;
   width: 100vw;

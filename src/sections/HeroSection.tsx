@@ -60,28 +60,10 @@ export default function HeroSection({
         ease: "power2.out",
       });
 
-      // Exit animation timeline
-      const exitTl = gsap.timeline({ paused: true });
-      exitTl.to(content, {
-        x: "-18vw",
-        opacity: 0,
-        duration: 0.8,
-        ease: "power2.in",
-      });
-      exitTl.to(
-        bg,
-        { scale: 1.06, y: "-2vh", duration: 0.8, ease: "power2.in" },
-        0
-      );
-
       ScrollTrigger.create({
         trigger: section,
-        start: "top top",
-        end: "+=100%",
-        pin: true,
+        start: "top 80%",
         onEnter: () => enterTl.play(),
-        onLeave: () => exitTl.play(),
-        onEnterBack: () => exitTl.reverse(),
         onLeaveBack: () => enterTl.reverse(),
       });
     }, section);
@@ -90,7 +72,7 @@ export default function HeroSection({
   }, []);
 
   return (
-    <section ref={sectionRef} className="section-pinned z-10">
+    <section ref={sectionRef} className="snap-section section-pinned z-10">
       <img
         ref={bgRef}
         src="/images/hero_bg.jpg"

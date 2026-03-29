@@ -72,38 +72,10 @@ export default function SeasonalSection({
         0.15
       );
 
-      // Exit animation timeline
-      const exitTl = gsap.timeline({ paused: true });
-      exitTl.to(left, {
-        opacity: 0,
-        x: "-15vw",
-        duration: 0.7,
-        ease: "power2.in",
-      });
-      exitTl.to(
-        right,
-        {
-          opacity: 0,
-          x: "15vw",
-          duration: 0.7,
-          ease: "power2.in",
-        },
-        0.05
-      );
-      exitTl.to(
-        bg,
-        { scale: 1.06, y: "-2vh", duration: 0.8, ease: "power2.in" },
-        0
-      );
-
       ScrollTrigger.create({
         trigger: section,
-        start: "top top",
-        end: "+=100%",
-        pin: true,
+        start: "top 80%",
         onEnter: () => enterTl.play(),
-        onLeave: () => exitTl.play(),
-        onEnterBack: () => exitTl.reverse(),
         onLeaveBack: () => enterTl.reverse(),
       });
     }, section);
@@ -112,7 +84,7 @@ export default function SeasonalSection({
   }, []);
 
   return (
-    <section ref={sectionRef} className="section-pinned z-50">
+    <section ref={sectionRef} className="snap-section section-pinned z-50">
       <img
         ref={bgRef}
         src="/images/seasonal_bg.jpg"

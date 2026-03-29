@@ -72,7 +72,7 @@ export default function NewsletterSection({
     <section
       ref={sectionRef}
       id="newsletter"
-      className="relative min-h-[70vh] flex items-center justify-center py-20"
+      className="snap-section-auto relative min-h-[70vh] flex items-center justify-center py-20"
     >
       <img
         src="/images/newsletter_bg.jpg"

@@ -92,7 +92,7 @@ export default function PageClient({
         links={navLinks}
       />
       <div className="grain-overlay" />
-      <main>
+      <main className="snap-container">
         <HeroSection
           headingWords={settings?.heroHeadingWords}
           description={settings?.heroDescription}

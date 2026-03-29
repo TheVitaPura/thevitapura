@@ -80,39 +80,10 @@ export default function PrinciplesSection({
         0.15
       );
 
-      // Exit animation timeline
-      const exitTl = gsap.timeline({ paused: true });
-      exitTl.to(title, {
-        opacity: 0,
-        x: "-15vw",
-        duration: 0.7,
-        ease: "power2.in",
-      });
-      exitTl.to(
-        listItems,
-        {
-          opacity: 0,
-          x: "15vw",
-          stagger: 0.05,
-          duration: 0.6,
-          ease: "power2.in",
-        },
-        0.05
-      );
-      exitTl.to(
-        bg,
-        { scale: 1.06, y: "-2vh", duration: 0.8, ease: "power2.in" },
-        0
-      );
-
       ScrollTrigger.create({
         trigger: section,
-        start: "top top",
-        end: "+=100%",
-        pin: true,
+        start: "top 80%",
         onEnter: () => enterTl.play(),
-        onLeave: () => exitTl.play(),
-        onEnterBack: () => exitTl.reverse(),
         onLeaveBack: () => enterTl.reverse(),
       });
     }, section);
@@ -121,7 +92,7 @@ export default function PrinciplesSection({
   }, []);
 
   return (
-    <section ref={sectionRef} id="about" className="section-pinned z-40">
+    <section ref={sectionRef} id="about" className="snap-section section-pinned z-40">
       <img
         ref={bgRef}
         src="/images/principles_bg.jpg"
