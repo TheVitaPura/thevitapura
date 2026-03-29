@@ -77,6 +77,16 @@ export default function CuratedPicksSection({
         ease: "power2.out",
         scrollTrigger: { trigger: section, start: "top 60%" },
       });
+
+      // Exit
+      gsap.to(title, {
+        y: -40, opacity: 0, duration: 0.6, ease: "power2.in",
+        scrollTrigger: { trigger: section, start: "bottom 60%", scrub: true },
+      });
+      gsap.to(cardEls, {
+        y: -50, opacity: 0, stagger: 0.05, duration: 0.6, ease: "power2.in",
+        scrollTrigger: { trigger: section, start: "bottom 60%", scrub: true },
+      });
     }, section);
 
     return () => ctx.revert();

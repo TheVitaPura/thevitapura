@@ -44,22 +44,24 @@ export default function CategorySection({ categories }: CategorySectionProps) {
     const ctx = gsap.context(() => {
       const pills = pillsContainer.querySelectorAll(".category-pill");
 
+      // Enter
       gsap.from(title, {
-        x: -60,
-        opacity: 0,
-        duration: 0.8,
-        ease: "power2.out",
+        x: -60, opacity: 0, duration: 0.8, ease: "power2.out",
         scrollTrigger: { trigger: section, start: "top 60%" },
       });
       gsap.from(pills, {
-        y: 20,
-        opacity: 0,
-        scale: 0.95,
-        stagger: 0.06,
-        duration: 0.6,
-        delay: 0.3,
-        ease: "power2.out",
+        y: 20, opacity: 0, scale: 0.95, stagger: 0.06, duration: 0.6, delay: 0.3, ease: "power2.out",
         scrollTrigger: { trigger: section, start: "top 60%" },
+      });
+
+      // Exit
+      gsap.to(title, {
+        x: -80, opacity: 0, duration: 0.6, ease: "power2.in",
+        scrollTrigger: { trigger: section, start: "bottom 60%", scrub: true },
+      });
+      gsap.to(pills, {
+        y: -30, opacity: 0, stagger: 0.03, duration: 0.6, ease: "power2.in",
+        scrollTrigger: { trigger: section, start: "bottom 60%", scrub: true },
       });
     }, section);
 
