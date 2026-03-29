@@ -73,11 +73,12 @@ export default function RoomGuidesSection({ guides }: RoomGuidesSectionProps) {
         {
           y: 0,
           opacity: 1,
+          duration: 1,
+          ease: "power2.out",
           scrollTrigger: {
             trigger: title,
             start: "top 80%",
-            end: "top 35%",
-            scrub: 0.5,
+            toggleActions: "play none none none",
           },
         }
       );
@@ -88,11 +89,12 @@ export default function RoomGuidesSection({ guides }: RoomGuidesSectionProps) {
         {
           y: 0,
           opacity: 1,
+          duration: 1,
+          ease: "power2.out",
           scrollTrigger: {
             trigger: intro,
             start: "top 80%",
-            end: "top 55%",
-            scrub: 0.5,
+            toggleActions: "play none none none",
           },
         }
       );
@@ -104,12 +106,13 @@ export default function RoomGuidesSection({ guides }: RoomGuidesSectionProps) {
         {
           y: 0,
           opacity: 1,
-          stagger: 0.1,
+          stagger: 0.15,
+          duration: 1,
+          ease: "power2.out",
           scrollTrigger: {
             trigger: cards,
             start: "top 85%",
-            end: "top 60%",
-            scrub: 0.5,
+            toggleActions: "play none none none",
           },
         }
       );
@@ -120,11 +123,12 @@ export default function RoomGuidesSection({ guides }: RoomGuidesSectionProps) {
         {
           y: 0,
           opacity: 1,
+          duration: 0.8,
+          ease: "power2.out",
           scrollTrigger: {
             trigger: cta,
             start: "top 85%",
-            end: "top 65%",
-            scrub: 0.5,
+            toggleActions: "play none none none",
           },
         }
       );

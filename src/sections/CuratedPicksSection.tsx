@@ -60,46 +60,56 @@ export default function CuratedPicksSection({
     const ctx = gsap.context(() => {
       const cardEls = cards.querySelectorAll(".product-card");
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: "top top",
-          end: "+=140%",
-          pin: true,
-          scrub: 0.6,
-        },
-      });
+      // Set initial state
+      gsap.set(title, { y: 30, opacity: 0 });
+      gsap.set(cardEls, { y: "15vh", opacity: 0, scale: 0.92 });
 
-      // Animate title in
-      tl.fromTo(
-        title,
-        { y: 30, opacity: 0 },
-        { y: 0, opacity: 1, ease: "none" },
+      // Enter animation timeline
+      const enterTl = gsap.timeline({ paused: true });
+      enterTl.to(title, {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: "power2.out",
+      });
+      enterTl.to(
+        cardEls,
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          stagger: 0.15,
+          duration: 1.2,
+          ease: "power2.out",
+        },
+        0.2
+      );
+
+      // Exit animation timeline
+      const exitTl = gsap.timeline({ paused: true });
+      exitTl.to([title, ...Array.from(cardEls)], {
+        opacity: 0,
+        y: "-10vh",
+        stagger: 0.08,
+        duration: 0.7,
+        ease: "power2.in",
+      });
+      exitTl.to(
+        bg,
+        { scale: 1.06, y: "-2vh", duration: 0.8, ease: "power2.in" },
         0
       );
 
-      // Animate cards in with stagger
-      tl.fromTo(
-        cardEls,
-        { y: "15vh", opacity: 0, scale: 0.92 },
-        { y: 0, opacity: 1, scale: 1, stagger: 0.05, ease: "none" },
-        0.08
-      );
-
-      // Animate out
-      tl.fromTo(
-        [title, ...Array.from(cardEls)],
-        { opacity: 1, y: 0 },
-        { opacity: 0, y: "-10vh", stagger: 0.03, ease: "power2.in" },
-        0.7
-      );
-
-      tl.fromTo(
-        bg,
-        { scale: 1, y: 0 },
-        { scale: 1.06, y: "-2vh", ease: "none" },
-        0.7
-      );
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top top",
+        end: "+=140%",
+        pin: true,
+        onEnter: () => enterTl.play(),
+        onLeave: () => exitTl.play(),
+        onEnterBack: () => exitTl.reverse(),
+        onLeaveBack: () => enterTl.reverse(),
+      });
     }, section);
 
     return () => ctx.revert();

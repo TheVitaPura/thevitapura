@@ -56,49 +56,65 @@ export default function PrinciplesSection({
     const ctx = gsap.context(() => {
       const listItems = list.querySelectorAll(".principle-item");
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: "top top",
-          end: "+=130%",
-          pin: true,
-          scrub: 0.6,
-        },
-      });
+      // Set initial state
+      gsap.set(title, { x: "-40vw", opacity: 0 });
+      gsap.set(listItems, { x: "40vw", opacity: 0 });
 
-      // Animate title in
-      tl.fromTo(
-        title,
-        { x: "-40vw", opacity: 0 },
-        { x: 0, opacity: 1, ease: "none" },
+      // Enter animation timeline
+      const enterTl = gsap.timeline({ paused: true });
+      enterTl.to(title, {
+        x: 0,
+        opacity: 1,
+        duration: 1.2,
+        ease: "power2.out",
+      });
+      enterTl.to(
+        listItems,
+        {
+          x: 0,
+          opacity: 1,
+          stagger: 0.12,
+          duration: 1,
+          ease: "power2.out",
+        },
+        0.15
+      );
+
+      // Exit animation timeline
+      const exitTl = gsap.timeline({ paused: true });
+      exitTl.to(title, {
+        opacity: 0,
+        x: "-15vw",
+        duration: 0.7,
+        ease: "power2.in",
+      });
+      exitTl.to(
+        listItems,
+        {
+          opacity: 0,
+          x: "15vw",
+          stagger: 0.05,
+          duration: 0.6,
+          ease: "power2.in",
+        },
+        0.05
+      );
+      exitTl.to(
+        bg,
+        { scale: 1.06, y: "-2vh", duration: 0.8, ease: "power2.in" },
         0
       );
 
-      // Animate principle items in
-      tl.fromTo(
-        listItems,
-        { x: "40vw", opacity: 0 },
-        { x: 0, opacity: 1, stagger: 0.04, ease: "none" },
-        0.05
-      );
-
-      // Animate out
-      tl.fromTo(
-        title,
-        { opacity: 1 },
-        { opacity: 0, x: "-15vw", ease: "power2.in" },
-        0.72
-      ).fromTo(
-        listItems,
-        { opacity: 1 },
-        { opacity: 0, x: "15vw", stagger: 0.02, ease: "power2.in" },
-        0.72
-      ).fromTo(
-        bg,
-        { scale: 1, y: 0 },
-        { scale: 1.06, y: "-2vh", ease: "none" },
-        0.7
-      );
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top top",
+        end: "+=130%",
+        pin: true,
+        onEnter: () => enterTl.play(),
+        onLeave: () => exitTl.play(),
+        onEnterBack: () => exitTl.reverse(),
+        onLeaveBack: () => enterTl.reverse(),
+      });
     }, section);
 
     return () => ctx.revert();

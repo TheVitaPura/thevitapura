@@ -45,12 +45,13 @@ export default function FooterSection({
         {
           y: 0,
           opacity: 1,
-          stagger: 0.1,
+          stagger: 0.15,
+          duration: 1,
+          ease: "power2.out",
           scrollTrigger: {
             trigger: section,
             start: "top 85%",
-            end: "top 60%",
-            scrub: 0.5,
+            toggleActions: "play none none none",
           },
         }
       );

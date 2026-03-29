@@ -47,11 +47,12 @@ export default function NewsletterSection({
         {
           y: 0,
           opacity: 1,
+          duration: 1.2,
+          ease: "power2.out",
           scrollTrigger: {
             trigger: section,
             start: "top 80%",
-            end: "top 50%",
-            scrub: 0.5,
+            toggleActions: "play none none none",
           },
         }
       );

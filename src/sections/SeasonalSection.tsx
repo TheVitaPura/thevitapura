@@ -49,45 +49,63 @@ export default function SeasonalSection({
     if (!section || !bg || !left || !right) return;
 
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: "top top",
-          end: "+=130%",
-          pin: true,
-          scrub: 0.6,
-        },
-      });
+      // Set initial state
+      gsap.set(left, { x: "-50vw", opacity: 0 });
+      gsap.set(right, { x: "50vw", opacity: 0 });
 
-      tl.fromTo(
-        left,
-        { x: "-50vw", opacity: 0 },
-        { x: 0, opacity: 1, ease: "none" },
-        0
-      ).fromTo(
+      // Enter animation timeline
+      const enterTl = gsap.timeline({ paused: true });
+      enterTl.to(left, {
+        x: 0,
+        opacity: 1,
+        duration: 1.2,
+        ease: "power2.out",
+      });
+      enterTl.to(
         right,
-        { x: "50vw", opacity: 0 },
-        { x: 0, opacity: 1, ease: "none" },
+        {
+          x: 0,
+          opacity: 1,
+          duration: 1.2,
+          ease: "power2.out",
+        },
+        0.15
+      );
+
+      // Exit animation timeline
+      const exitTl = gsap.timeline({ paused: true });
+      exitTl.to(left, {
+        opacity: 0,
+        x: "-15vw",
+        duration: 0.7,
+        ease: "power2.in",
+      });
+      exitTl.to(
+        right,
+        {
+          opacity: 0,
+          x: "15vw",
+          duration: 0.7,
+          ease: "power2.in",
+        },
         0.05
       );
-
-      // Animate out
-      tl.fromTo(
-        left,
-        { opacity: 1 },
-        { opacity: 0, x: "-15vw", ease: "power2.in" },
-        0.72
-      ).fromTo(
-        right,
-        { opacity: 1 },
-        { opacity: 0, x: "15vw", ease: "power2.in" },
-        0.72
-      ).fromTo(
+      exitTl.to(
         bg,
-        { scale: 1, y: 0 },
-        { scale: 1.06, y: "-2vh", ease: "none" },
-        0.7
+        { scale: 1.06, y: "-2vh", duration: 0.8, ease: "power2.in" },
+        0
       );
+
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top top",
+        end: "+=130%",
+        pin: true,
+        onEnter: () => enterTl.play(),
+        onLeave: () => exitTl.play(),
+        onEnterBack: () => exitTl.reverse(),
+        onLeaveBack: () => enterTl.reverse(),
+      });
     }, section);
 
     return () => ctx.revert();

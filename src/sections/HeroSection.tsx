@@ -44,43 +44,46 @@ export default function HeroSection({
     if (!section || !bg || !content) return;
 
     const ctx = gsap.context(() => {
-      // Pin section and animate content
       const wordEls = content.querySelectorAll(".word");
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: "top top",
-          end: "+=130%",
-          pin: true,
-          scrub: 0.6,
-          onLeaveBack: () => {
-            gsap.set([...Array.from(wordEls), content], {
-              opacity: 1,
-              x: 0,
-              y: 0,
-            });
-          },
-        },
+
+      // Set initial state
+      gsap.set(wordEls, { y: 40, opacity: 0 });
+      gsap.set(content, { x: 0, opacity: 1 });
+
+      // Enter animation timeline
+      const enterTl = gsap.timeline({ paused: true });
+      enterTl.to(wordEls, {
+        y: 0,
+        opacity: 1,
+        stagger: 0.12,
+        duration: 1.2,
+        ease: "power2.out",
       });
 
-      // Animate words in
-      tl.fromTo(
-        wordEls,
-        { y: 40, opacity: 0 },
-        { y: 0, opacity: 1, stagger: 0.05, ease: "none" },
+      // Exit animation timeline
+      const exitTl = gsap.timeline({ paused: true });
+      exitTl.to(content, {
+        x: "-18vw",
+        opacity: 0,
+        duration: 0.8,
+        ease: "power2.in",
+      });
+      exitTl.to(
+        bg,
+        { scale: 1.06, y: "-2vh", duration: 0.8, ease: "power2.in" },
         0
       );
 
-      // Animate content out
-      tl.fromTo(
-        content,
-        { x: 0, opacity: 1 },
-        { x: "-18vw", opacity: 0, ease: "power2.in" },
-        0.7
-      );
-
-      // Parallax bg
-      tl.fromTo(bg, { scale: 1, y: 0 }, { scale: 1.06, y: "-2vh", ease: "none" }, 0.7);
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top top",
+        end: "+=130%",
+        pin: true,
+        onEnter: () => enterTl.play(),
+        onLeave: () => exitTl.play(),
+        onEnterBack: () => exitTl.reverse(),
+        onLeaveBack: () => enterTl.reverse(),
+      });
     }, section);
 
     return () => ctx.revert();
